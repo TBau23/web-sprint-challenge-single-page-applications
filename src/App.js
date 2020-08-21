@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Switch, Route} from 'react-router-dom'
 import HomePage from './HomePage'
 import PizzaForm from './PizzaForm'
+import Nav from './Nav'
 import OrderRecord from './OrderRecord'
 import formSchema from './Validation/formSchema'
 import * as yup from 'yup'
@@ -128,6 +129,7 @@ useEffect(() => {
 
   return (
     <div className='app'>
+      <Nav />
       <h1>Lambda Eats</h1>
 
     
