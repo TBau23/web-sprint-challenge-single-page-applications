@@ -83,6 +83,15 @@ const PizzaForm = () => {
 
                     </label>
                 </div>
+                <div>
+                    <label>Special Instructions:&nbsp;
+                        <input 
+                        type = 'text'
+                        name = 'specialInstructions'
+                        />
+
+                    </label>
+                </div>
 
             </div>
 
