@@ -7,6 +7,7 @@ import OrderRecord from './OrderRecord'
 import formSchema from './Validation/formSchema'
 import * as yup from 'yup'
 import axios from 'axios'
+import './App.css'
 
 
 
@@ -19,7 +20,7 @@ const initialFormValues = {
     sausage: false,
     green_peppers: false,
     mushrooms: false,
-    pineapple:false,
+    pineapple: false,
   },
   
 }
@@ -130,7 +131,7 @@ useEffect(() => {
   return (
     <div className='app'>
       <Nav />
-      <h1>Lambda Eats</h1>
+      <h1 className='title'>Lambda Eats</h1>
 
     
       <Switch>

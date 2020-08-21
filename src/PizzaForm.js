@@ -1,5 +1,5 @@
 import React from "react";
-
+import './App.css';
 const PizzaForm = (props) => {
 
     const {
@@ -45,6 +45,7 @@ const PizzaForm = (props) => {
                     type='text'
                     value={values.name}
                     onChange={onInputChange}
+                    
                     />
 
                 </label>
@@ -82,6 +83,7 @@ const PizzaForm = (props) => {
                         name='sausage'
                         checked={values.toppings.sausage}
                         onChange={onCheckboxChange}
+                        data-cy='sausage'
                         />
 
                     </label>

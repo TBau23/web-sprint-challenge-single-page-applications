@@ -10,8 +10,8 @@ describe('Pizza Delivery Website', () => {
                 .should('have.value', "Big Time Barry")
         })
         it("Can check multiple toppings", () => {
-            cy.get('input[type="checkbox"]').first().check()
-            
+            cy.get('input[type="checkbox"]').check()
+            cy.get('input[type="checkbox"]').check()
 
         })
 
