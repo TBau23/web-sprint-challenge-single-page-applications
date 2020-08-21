@@ -1,14 +1,39 @@
 import React from "react";
 
-const PizzaForm = () => {
+const PizzaForm = (props) => {
+
+    const {
+        values,
+        errors,
+        inputChange,
+        checkboxChange,
+        disabled,
+        submit
+    } = props
+
+    const onSubmit = evt => {
+        evt.preventDefault()
+        submit()
+    }
+
+    const onCheckboxChange = evt => {
+        const { name, checked } = evt.target
+        checkboxChange(name, checked)
+    }
+
+    const onInputChange = evt => {
+        const {name, value} = evt.target
+        inputChange(name, value)
+    }
+
 
     return(
-    <form className='form-container'>
+    <form className='form-container' onSubmit={onSubmit}>
         <div className='submit__div'>
             <h2>Order a Pizza!</h2>
-            <button id='submitBtn'>Order</button>
+            <button id='submitBtn' disabled={disabled}>Order</button>
             <div className='errors'>
-                <div></div>
+                <div>{errors.name}</div>
             </div>
 
             <div className='inputs'>
@@ -18,7 +43,8 @@ const PizzaForm = () => {
                     <input
                     name='name'
                     type='text'
-
+                    value={values.name}
+                    onChange={onInputChange}
                     />
 
                 </label>
@@ -26,7 +52,8 @@ const PizzaForm = () => {
                 <label>Pizza Size:&nbsp;
                     <select
                     name='size'
-
+                    value={values.size}
+                    onChange={onInputChange}
                     >
                         <option value=''>Select an Option</option>
                         <option value='Small'>Small</option>
@@ -42,6 +69,8 @@ const PizzaForm = () => {
                         <input
                         type='checkbox'
                         name='pepperoni'
+                        checked={values.toppings.pepperoni}
+                        onChange={onCheckboxChange}
 
                         />
 
@@ -51,7 +80,8 @@ const PizzaForm = () => {
                         <input
                         type='checkbox'
                         name='sausage'
-
+                        checked={values.toppings.sausage}
+                        onChange={onCheckboxChange}
                         />
 
                     </label>
@@ -60,6 +90,8 @@ const PizzaForm = () => {
                         <input
                         type='checkbox'
                         name='green_peppers'
+                        value={values.toppings.green_peppers}
+                        onChange={onCheckboxChange}
 
                         />
 
@@ -69,7 +101,8 @@ const PizzaForm = () => {
                         <input
                         type='checkbox'
                         name='mushrooms'
-
+                        value={values.toppings.mushrooms}
+                        onChange={onCheckboxChange}
                         />
 
                     </label>
@@ -78,6 +111,8 @@ const PizzaForm = () => {
                         <input
                         type='checkbox'
                         name='pineapple'
+                        value={values.toppings.pineapple}
+                        onChange={onCheckboxChange}
 
                         />
 
@@ -88,6 +123,8 @@ const PizzaForm = () => {
                         <input 
                         type = 'text'
                         name = 'specialInstructions'
+                        value={values.specialInstructions}
+                        onChange={onInputChange}
                         />
 
                     </label>

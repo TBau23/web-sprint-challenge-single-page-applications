@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Switch, Route} from 'react-router-dom'
 import HomePage from './HomePage'
 import PizzaForm from './PizzaForm'
+import OrderRecord from './OrderRecord'
 import formSchema from './Validation/formSchema'
 import * as yup from 'yup'
 import axios from 'axios'
@@ -11,12 +12,15 @@ import axios from 'axios'
 const initialFormValues = {
   name: '',
   size: '',
-  pepperoni: false,
-  sausage: false,
-  green_peppers: false,
-  mushrooms: false,
-  pineapple:false,
   specialInstructions: '',
+  toppings: {
+    pepperoni: false,
+    sausage: false,
+    green_peppers: false,
+    mushrooms: false,
+    pineapple:false,
+  },
+  
 }
 
 const initialFormErrors = {
@@ -40,7 +44,7 @@ const App = () => {
     axios.get('https://reqres.in/api/users')
       .then(res => {
         console.log(res.data)
-        setOrders(res.data)
+        setOrders(res.data.data)
       })
       .catch(err => {
         debugger
@@ -91,7 +95,10 @@ const inputChange = (name, value) => {
 const checkboxChange = (name, isChecked) => {
   setFormValues({
     ...formValues,
-    [name]: isChecked
+    toppings: {
+      ...formValues.toppings,
+      [name]: isChecked,
+    }
   })
 }
 
@@ -100,12 +107,8 @@ const submit = () => {
   const newOrder = {
     name: formValues.name.trim(),
     size: formValues.size.trim(),
-    pepperoni: formValues.pepperoni,
-    sausage: formValues.sausage,
-    green_peppers: formValues.green_peppers,
-    mushrooms: formValues.mushrooms,
-    pineapple: formValues.pineapple,
     specialInstructions: formValues.specialInstructions.trim(),
+    toppings: Object.keys(formValues.toppings).filter(topping => formValues.toppings[topping]),
   }
 
   postNewOrder(newOrder)
@@ -130,7 +133,22 @@ useEffect(() => {
     
       <Switch>
         <Route path='/order'>
-          <PizzaForm />
+          <PizzaForm
+          values={formValues}
+          errors={formErrors}
+          inputChange={inputChange}
+          submit={submit}
+          disabled={disabled}
+          checkboxChange={checkboxChange}
+          />
+          {/* Individual Order */}
+          {
+            orders.map(order => {
+              return (
+                <OrderRecord key={order.id} details={order}/>
+              )
+            })
+          }
         </Route>
 
         <Route path='/' exact>
